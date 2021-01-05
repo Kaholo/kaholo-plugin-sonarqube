@@ -1,8 +1,11 @@
 # kaholo-plugin-sonarqube
 Kaholo Plugin for SonarQube
+This plugin is wrapping SonarQube CLI. You can download it from [here](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
+
 
 ## Settings
-
+### Parameters
+1) Token
 ## Method: Create Project
 This method will create a new project.
 This method is wrapping SonarQube RestAPI. You can see the API documentation [here](https://docs.sonarqube.org/latest/extend/web-api/)
