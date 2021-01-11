@@ -41,8 +41,8 @@
         },
         {
           "name": "LOGIN",
-          "viewName": "Login*",
-          "type": "string"
+          "viewName": "Login",
+          "type": "vault"
         },
         {
           "name": "workDir",
