@@ -1,82 +1,96 @@
 {
-    "name": "SonarQube",
-    "type": "executer",
-    "execProgram": "node",
-    "main": "app.js",
-    "exposeRoute": true,
-    "imgUrl": "sonar.png",
-    "version": "1.0.0",
-    "description": "Integration with SonarQube REST API",
-    "settings": [
+  "name": "SonarQube",
+  "type": "executer",
+  "execProgram": "node",
+  "main": "app.js",
+  "exposeRoute": true,
+  "imgUrl": "sonar.png",
+  "version": "1.0.0",
+  "description": "Integration with SonarQube REST API",
+  "settings": [
+    {
+      "name": "SONAR_SCANNER",
+      "viewName": "Sonar Scanner",
+      "type": "string"
+    },
+    {
+      "name": "HOST_URL",
+      "viewName": "Host URL",
+      "type": "string"
+    },
+    {
+      "name": "LOGIN",
+      "viewName": "CLI Token",
+      "type": "vault"
+    },
+    {
+      "name": "restToken",
+      "viewName": "REST API Token",
+      "type": "vault"
+    }
+  ],
+  "methods": [
+    {
+      "name": "RUN_TEST",
+      "viewName": "Run test",
+      "params": [
         {
-            "name": "TOKEN",
-            "viewName": "Token",
-            "type": "vault"
-        }
-    ],
-    "methods": [
-        {
-            "name":"RUN_TEST",
-            "viewName": "Run test",
-            "params":[
-              {
-                "name":"SONAR_SCANNER",
-                "viewName":"Sonar Scanner path*",
-                "type":"string"
-              },
-              {
-                "name":"PROJECT_KEY",
-                "viewName":"Project Key*",
-                "type":"string"
-              },
-              {
-                "name":"SOURCES",
-                "viewName":"Sources Path*",
-                "type":"string"
-              },
-              {
-                "name":"HOST_URL",
-                "viewName":"Host URL* (ie. http://localhost:9000)",
-                "type":"string"
-              },
-              {
-                "name":"LOGIN",
-                "viewName":"Login*",
-                "type":"string"
-              }
-            ]
+          "name": "HOST_URL",
+          "viewName": "Host URL",
+          "type": "string"
         },
-
         {
-            "name": "CREATE_PROJECT",
-            "viewName": "Create Project",
-            "params": [
-                {
-                  "name": "HOME_URL",
-                  "viewName": "Base URL* (ie. http://localhost:9000)",
-                  "type":"string"
-                },
-                {
-                  "name": "NAME",
-                  "viewName": "Project name*",
-                  "type": "string"
-                },
-                {
-                  "name": "ORGANIZATION",
-                  "viewName": "Organization",
-                  "type": "string"
-                },
-                {
-                  "name": "PROJECT_KEY",
-                  "viewName": "Project key*",
-                  "type": "string"
-                },
-                {
-                  "name": "VISIBILITY",
-                  "viewName": "visibility",
-                  "type": "string"
-                }              
-            ]
+          "name": "LOGIN",
+          "viewName": "Login*",
+          "type": "string"
+        },
+        {
+          "name": "workDir",
+          "viewName": "Working Directory",
+          "type": "string"
+        },
+        {
+          "name": "PROJECT_KEY",
+          "viewName": "Project Key*",
+          "type": "string"
+        },
+        {
+          "name": "SOURCES",
+          "viewName": "Sources Path*",
+          "type": "string"
         }
-    ]       
+      ]
+    },
+    {
+      "name": "CREATE_PROJECT",
+      "viewName": "Create Project",
+      "params": [
+        {
+          "name": "HOST_URL",
+          "viewName": "Host URL",
+          "type": "string"
+        },
+        {
+          "name": "NAME",
+          "viewName": "Project name*",
+          "type": "string"
+        },
+        {
+          "name": "ORGANIZATION",
+          "viewName": "Organization",
+          "type": "string"
+        },
+        {
+          "name": "PROJECT_KEY",
+          "viewName": "Project key*",
+          "type": "string"
+        },
+        {
+          "name": "VISIBILITY",
+          "viewName": "visibility",
+          "type": "string"
+        }
+      ]
+    }
+  ]
 }

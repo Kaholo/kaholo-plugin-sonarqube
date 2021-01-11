@@ -13,14 +13,35 @@ async function runTest(action, settings) {
         -Dsonar.host.url=http://localhost:9000 \
         -Dsonar.login=###########
      */
-    const sonarScanner = action.params.SONAR_SCANNER;
-    const projectKey = action.params.PROJECT_KEY;
-    const sourcesPath = action.params.SOURCES;
-    const hostURL = action.params.HOST_URL;
-    const login = action.params.LOGIN;
-    const command = `${sonarScanner} -Dsonar.projectKey=${projectKey} -Dsonar.sources=${sourcesPath} -Dsonar.host.url=${hostURL} -Dsonar.login=${login}`;
+    const sonarScanner = settings.SONAR_SCANNER || 'sonar-scanner';
+    const hostURL = action.params.HOST_URL || settings.HOST_URL;
+    const login = action.params.LOGIN || settings.LOGIN;
+    
+    const cmdArgs = [
+        sonarScanner
+    ];
+
+    if(action.params.PROJECT_KEY){
+        cmdArgs.push(`-Dsonar.projectKey=${action.params.PROJECT_KEY}`);
+    }
+
+    if(action.params.SOURCES){
+        cmdArgs.push(`-Dsonar.sources=${action.params.SOURCES}`);
+    }
+
+    if(hostURL){
+        cmdArgs.push(`-Dsonar.host.url=${hostURL}`);
+    }
+
+    if(login){
+        cmdArgs.push(`-Dsonar.login=${login}`);
+    }
+
+    const command = cmdArgs.join(' ');
     return new Promise((resolve, reject) => {
-        child_process.exec(command, (error, stdout, stderr) => {
+        child_process.exec(command, {
+            cwd : action.params.workDir || null
+        }, (error, stdout, stderr) => {
             if (error) {
                 console.log(`${stdout}`)
                 return reject(`exec error: ${error}`);
@@ -39,19 +60,18 @@ async function createNewProject(action, settings) {
      * Creates a new Project 
      * Based on Docs here: https://sonarcloud.io/web_api/api/projects
      */
-    const method = "POST";
+    const hostURL = action.params.HOST_URL || settings.HOST_URL;
     const projectName = action.params.NAME;
-    const sonarQubeHome = action.params.HOME_URL
-    let url = sonarQubeHome + "/api/projects/create";
     const organization = action.params.ORGANIZATION || undefined;
     const projectKey = action.params.PROJECT_KEY;
     const visability = action.params.VISIBILITY;
-    const userToken = settings.TOKEN;
-    url = `${url}?name=${projectName}&project=${projectKey}&visability=${visability}`;
+    const userToken = settings.restToken;
+    
+    let url = `${hostURL}/api/projects/create?name=${projectName}&project=${projectKey}&visability=${visability}`;
     if (organization) {
-        url = url + `&organization=${organization}`
+        url += `&organization=${organization}`
     }
-    return await genericRestAPI(method, url, userToken);
+    return await genericRestAPI("POST", url, userToken);
 }
 
 ///////////////////// HELPERS ///////////////////// 
