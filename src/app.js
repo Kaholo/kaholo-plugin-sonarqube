@@ -1,8 +1,6 @@
-const fetch = require('node-fetch');
-const base64 = require('base-64');
-const child_process = require("child_process")
+const child_process = require("child_process");
+const { genericRestAPI, splitByNewLine } = require("./helpers");
 
-///////////////////// METHODS ///////////////////// 
 async function runTest(action, settings) {
     /**
      * This command will execute sonar-scanner cli.
@@ -13,29 +11,20 @@ async function runTest(action, settings) {
         -Dsonar.host.url=http://localhost:9000 \
         -Dsonar.login=###########
      */
-    const sonarScanner = settings.SONAR_SCANNER || 'sonar-scanner';
+    const sonarScanner = settings.SONAR_SCANNER ? `"${settings.SONAR_SCANNER}"` : 'sonar-scanner';
     const hostURL = action.params.HOST_URL || settings.HOST_URL;
     const login = action.params.LOGIN || settings.LOGIN;
+    const extraArgsStr = (action.params.args || "").trim();
     
     const cmdArgs = [
         sonarScanner
     ];
 
-    if(action.params.PROJECT_KEY){
-        cmdArgs.push(`-Dsonar.projectKey=${action.params.PROJECT_KEY}`);
-    }
-
-    if(action.params.SOURCES){
-        cmdArgs.push(`-Dsonar.sources=${action.params.SOURCES}`);
-    }
-
-    if(hostURL){
-        cmdArgs.push(`-Dsonar.host.url=${hostURL}`);
-    }
-
-    if(login){
-        cmdArgs.push(`-Dsonar.login=${login}`);
-    }
+    if (action.params.PROJECT_KEY)  cmdArgs.push(`-Dsonar.projectKey=${action.params.PROJECT_KEY}`);
+    if (hostURL)                    cmdArgs.push(`-Dsonar.host.url=${hostURL}`);
+    if (action.params.SOURCES)      cmdArgs.push(`-Dsonar.sources=${splitByNewLine(action.params.SOURCES).join(",")}`);
+    if (login)                      cmdArgs.push(`-Dsonar.login=${login}`);
+    if (extraArgsStr)               cmdArgs.push(...splitByNewLine(extraArgsStr));
 
     const command = cmdArgs.join(' ');
     return new Promise((resolve, reject) => {
@@ -74,27 +63,7 @@ async function createNewProject(action, settings) {
     return await genericRestAPI("POST", url, userToken);
 }
 
-///////////////////// HELPERS ///////////////////// 
-async function genericRestAPI(method, url, userToken) {
-    /**
-     * Send Default API Request
-     */
-    let user = base64.encode(userToken + ":")
-    let request = {
-        method: `${method}`,
-        'headers': {
-            'Authorization': `Basic ${user}`
-        }
-    };
-    response = await fetch(url, request);
-    if (!response.ok) {
-        throw response
-    }
-    return response.json();
-}
-
 module.exports = {
     RUN_TEST: runTest,
     CREATE_PROJECT: createNewProject
-    // autocomplete
 };

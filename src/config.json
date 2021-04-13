@@ -5,8 +5,8 @@
   "main": "app.js",
   "exposeRoute": true,
   "imgUrl": "sonar.png",
-  "version": "1.0.0",
-  "description": "Integration with SonarQube REST API",
+  "version": "1.0.1",
+  "description": "Integration with SonarQube API and CLI",
   "settings": [
     {
       "name": "SONAR_SCANNER",
@@ -32,7 +32,7 @@
   "methods": [
     {
       "name": "RUN_TEST",
-      "viewName": "Run test",
+      "viewName": "Run Test",
       "params": [
         {
           "name": "HOST_URL",
@@ -57,7 +57,12 @@
         {
           "name": "SOURCES",
           "viewName": "Sources Path*",
-          "type": "string"
+          "type": "text"
+        },
+        {
+          "name": "args",
+          "viewName": "Additional Arguments",
+          "type": "text"
         }
       ]
     },
