@@ -5,7 +5,7 @@
   "main": "app.js",
   "exposeRoute": true,
   "imgUrl": "sonar.png",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Integration with SonarQube API and CLI",
   "settings": [
     {
@@ -97,5 +97,6 @@
         }
       ]
     }
-  ]
+  ],
+  "category": "TESTING"
 }
