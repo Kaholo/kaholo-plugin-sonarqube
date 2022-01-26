@@ -54,7 +54,7 @@ async function createNewProject(action, settings) {
     const organization = action.params.ORGANIZATION || undefined;
     const projectKey = action.params.PROJECT_KEY;
     const visability = action.params.VISIBILITY;
-    const userToken = settings.restToken;
+    const userToken = action.params.restToken || settings.restToken;
     
     let url = `${hostURL}/api/projects/create?name=${projectName}&project=${projectKey}&visability=${visability}`;
     if (organization) {
