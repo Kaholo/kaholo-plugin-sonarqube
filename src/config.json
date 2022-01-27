@@ -81,6 +81,11 @@
           "type": "string"
         },
         {
+          "name": "restToken",
+          "viewName": "REST API Token",
+          "type": "vault"
+        },
+        {
           "name": "ORGANIZATION",
           "viewName": "Organization",
           "type": "string"
