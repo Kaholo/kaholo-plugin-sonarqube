@@ -7,19 +7,20 @@
   "imgUrl": "sonar.png",
   "version": "1.0.3",
   "description": "Integration with SonarQube API and CLI",
+  "category": "TESTING",
   "settings": [
     {
-      "name": "SONAR_SCANNER",
+      "name": "sonarScanner",
       "viewName": "Sonar Scanner",
       "type": "string"
     },
     {
-      "name": "HOST_URL",
+      "name": "hostUrl",
       "viewName": "Host URL",
       "type": "string"
     },
     {
-      "name": "LOGIN",
+      "name": "login",
       "viewName": "CLI Token",
       "type": "vault"
     },
@@ -31,16 +32,16 @@
   ],
   "methods": [
     {
-      "name": "RUN_TEST",
+      "name": "runTest",
       "viewName": "Run Test",
       "params": [
         {
-          "name": "HOST_URL",
+          "name": "hostUrl",
           "viewName": "Host URL",
           "type": "string"
         },
         {
-          "name": "LOGIN",
+          "name": "login",
           "viewName": "Login",
           "type": "vault"
         },
@@ -50,34 +51,39 @@
           "type": "string"
         },
         {
-          "name": "PROJECT_KEY",
-          "viewName": "Project Key*",
+          "name": "projectKey",
+          "viewName": "Project Key",
+          "required": true,
           "type": "string"
         },
         {
-          "name": "SOURCES",
-          "viewName": "Sources Path*",
+          "name": "sources",
+          "viewName": "Sources Path",
+          "required": true,
+          "parserType": "array",
           "type": "text"
         },
         {
           "name": "args",
           "viewName": "Additional Arguments",
+          "parserType": "array",
           "type": "text"
         }
       ]
     },
     {
-      "name": "CREATE_PROJECT",
+      "name": "createProject",
       "viewName": "Create Project",
       "params": [
         {
-          "name": "HOST_URL",
+          "name": "hostUrl",
           "viewName": "Host URL",
           "type": "string"
         },
         {
-          "name": "NAME",
-          "viewName": "Project name*",
+          "name": "projectName",
+          "viewName": "Project name",
+          "required": true,
           "type": "string"
         },
         {
@@ -86,22 +92,22 @@
           "type": "vault"
         },
         {
-          "name": "ORGANIZATION",
+          "name": "organization",
           "viewName": "Organization",
           "type": "string"
         },
         {
-          "name": "PROJECT_KEY",
-          "viewName": "Project key*",
+          "name": "projectKey",
+          "viewName": "Project key",
+          "required": true,
           "type": "string"
         },
         {
-          "name": "VISIBILITY",
-          "viewName": "visibility",
+          "name": "visibility",
+          "viewName": "Visibility",
           "type": "string"
         }
       ]
     }
-  ],
-  "category": "TESTING"
+  ]
 }

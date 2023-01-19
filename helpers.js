@@ -18,12 +18,6 @@ async function genericRestAPI(method, url, userToken) {
   }
   return response.json();
 }
-
-function splitByNewLine(str) {
-  return str.split("\n").map((line) => line.trim()).filter((line) => line);
-}
-
 module.exports = {
   genericRestAPI,
-  splitByNewLine,
 };
