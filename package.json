@@ -1,10 +1,10 @@
 {
   "name": "kaholo-plugin-sonarqube",
-  "version": "1.0.1",
   "description": "Kaholo Plugin for SonarQube",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "author": "Ilan Yaniv",
   "license": "ISC",
@@ -12,5 +12,9 @@
     "base-64": "^1.0.0",
     "node-fetch": "^2.6.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
 }
