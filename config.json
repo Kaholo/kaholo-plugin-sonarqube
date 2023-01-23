@@ -4,7 +4,7 @@
   "execProgram": "node",
   "main": "app.js",
   "exposeRoute": true,
-  "imgUrl": "sonar.png",
+  "imgUrl": "logo.png",
   "version": "1.0.3",
   "description": "Integration with SonarQube API and CLI",
   "category": "TESTING",
