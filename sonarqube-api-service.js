@@ -4,19 +4,30 @@ const { URLSearchParams } = require("url");
 async function makeAuthenticatedApiCall(params) {
   const {
     method,
-    url,
+    hostUrl,
     token,
+    path,
   } = params;
 
-  const { data } = await axios.request({
-    method,
-    url,
-    auth: {
-      username: token,
-    },
-  });
+  try {
+    const { data } = await axios.request({
+      method,
+      url: path,
+      baseURL: hostUrl,
+      auth: {
+        username: token,
+      },
+    });
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error("API Call failed, error details:");
+    if (error.response?.data) {
+      console.error(JSON.stringify(error.response.data, null, 2));
+    }
+
+    throw error;
+  }
 }
 
 function createSimpleApiCallFunction(method, endpoint) {
@@ -27,19 +38,19 @@ function createSimpleApiCallFunction(method, endpoint) {
       urlSearchParams: urlSearchParamsObject,
     } = params;
 
-    const baseUrl = `${hostUrl}${endpoint}`;
     const urlSearchParams = new URLSearchParams(urlSearchParamsObject);
-    const url = `${baseUrl}?${urlSearchParams.toString()}`;
+    const path = `${endpoint}?${urlSearchParams.toString()}`;
 
     return makeAuthenticatedApiCall({
       method,
-      url,
+      hostUrl,
       token,
+      path,
     });
   };
 }
 
 module.exports = {
-  createProject: createSimpleApiCallFunction("POST", "/api/projects/create"),
-  getComponentMeasures: createSimpleApiCallFunction("GET", "/api/measures/component"),
+  createProject: createSimpleApiCallFunction("POST", "api/projects/create"),
+  getComponentMeasures: createSimpleApiCallFunction("GET", "api/measures/component"),
 };
