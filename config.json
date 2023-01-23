@@ -33,7 +33,7 @@
   "methods": [
     {
       "name": "runTest",
-      "viewName": "Run Test",
+      "viewName": "Run Sonar Scanner",
       "params": [
         {
           "name": "hostUrl",
@@ -107,6 +107,71 @@
           "viewName": "Visibility",
           "type": "string"
         }
+      ]
+    },
+    {
+      "name": "getViolations",
+      "viewName": "Get Violations",
+      "params": [
+        {
+          "name": "HOST_URL",
+          "viewName": "host",
+          "type": "string"
+        },
+        {
+          "name": "COMPONENT_NAME",
+          "viewName": "Component Name",
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "viewName": "Sonar Username",
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "viewName": "Sonar Password",
+          "type": "vault"
+        },
+        {
+          "name": "bearerToken",
+          "viewName": "API Token",
+          "type": "vault"
+        }
+      ]
+
+    },
+    {
+      "name": "getCoverage",
+      "viewName": "Get Code Coverage",
+      "params": [
+
+        {
+          "name": "HOST_URL",
+          "viewName": "host",
+          "type": "string"
+        },
+        {
+          "name": "COMPONENT_NAME",
+          "viewName": "Component Name",
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "viewName": "Sonar Username",
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "viewName": "Sonar Password",
+          "type": "vault"
+        },
+        {
+          "name": "bearerToken",
+          "viewName": "API Token",
+          "type": "vault"
+        }
+
       ]
     }
   ]

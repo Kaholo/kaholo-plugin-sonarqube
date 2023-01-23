@@ -18,6 +18,7 @@ async function genericRestAPI(method, url, userToken) {
   }
   return response.json();
 }
+
 module.exports = {
   genericRestAPI,
 };
