@@ -1,22 +1,23 @@
 const { default: axios } = require("axios");
-const { URLSearchParams } = require("url");
 
 async function makeAuthenticatedApiCall(params) {
   const {
     method,
     hostUrl,
     token,
-    path,
+    endpoint,
+    urlSearchParams: urlSearchParamsObject,
   } = params;
 
   try {
     const { data } = await axios.request({
       method,
-      url: path,
+      url: endpoint,
       baseURL: hostUrl,
       auth: {
         username: token,
       },
+      params: urlSearchParamsObject,
     });
 
     return data;
@@ -31,23 +32,13 @@ async function makeAuthenticatedApiCall(params) {
 }
 
 function createSimpleApiCallFunction(method, endpoint) {
-  return (params) => {
-    const {
-      hostUrl,
-      token,
-      urlSearchParams: urlSearchParamsObject,
-    } = params;
-
-    const urlSearchParams = new URLSearchParams(urlSearchParamsObject);
-    const path = `${endpoint}?${urlSearchParams.toString()}`;
-
-    return makeAuthenticatedApiCall({
-      method,
-      hostUrl,
-      token,
-      path,
-    });
-  };
+  return (params) => makeAuthenticatedApiCall({
+    method,
+    endpoint,
+    hostUrl: params.hostUrl,
+    token: params.token,
+    urlSearchParams: params.urlSearchParams,
+  });
 }
 
 module.exports = {
