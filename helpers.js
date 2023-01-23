@@ -1,24 +1,18 @@
-const fetch = require("node-fetch");
-const base64 = require("base-64");
+const { promisify } = require("util");
+const { exec: execWithCallback } = require("child_process");
+const fs = require("fs");
 
-async function genericRestAPI(method, url, userToken) {
-  /**
-     * Send Default API Request
-     */
-  const user = base64.encode(`${userToken}:`);
-  const request = {
-    method: `${method}`,
-    headers: {
-      Authorization: `Basic ${user}`,
-    },
-  };
-  const response = await fetch(url, request);
-  if (!response.ok) {
-    throw response;
+const exec = promisify(execWithCallback);
+
+async function assertPath(pathToAssert) {
+  try {
+    await fs.promises.access(pathToAssert, fs.constants.F_OK);
+  } catch {
+    throw new Error(`Path ${pathToAssert} does not exist on agent!`);
   }
-  return response.json();
 }
 
 module.exports = {
-  genericRestAPI,
+  exec,
+  assertPath,
 };

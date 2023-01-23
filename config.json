@@ -8,45 +8,36 @@
   "version": "1.0.3",
   "description": "Integration with SonarQube API and CLI",
   "category": "TESTING",
-  "settings": [
-    {
-      "name": "sonarScanner",
-      "viewName": "Sonar Scanner",
-      "type": "string"
-    },
-    {
-      "name": "hostUrl",
-      "viewName": "Host URL",
-      "type": "string"
-    },
-    {
-      "name": "login",
-      "viewName": "CLI Token",
-      "type": "vault"
-    },
-    {
-      "name": "restToken",
-      "viewName": "REST API Token",
-      "type": "vault"
-    }
-  ],
+  "auth": {
+    "authId": "sonarQubeAccount",
+    "params": [
+      {
+        "name": "hostUrl",
+        "viewName": "Host URL",
+        "description": "URL of the SonarQube server",
+        "type": "string"
+      },
+      {
+        "name": "login",
+        "viewName": "CLI Token",
+        "description": "CLI Token used to authenticate CLI execution",
+        "type": "vault"
+      },
+      {
+        "name": "restToken",
+        "viewName": "REST API Token",
+        "description": "API Token used to authenticate API calls",
+        "type": "vault"
+      }
+    ]
+  },
   "methods": [
     {
-      "name": "runTest",
+      "name": "runSonarScanner",
       "viewName": "Run Sonar Scanner",
       "params": [
         {
-          "name": "hostUrl",
-          "viewName": "Host URL",
-          "type": "string"
-        },
-        {
-          "name": "login",
-          "viewName": "Login",
-          "type": "vault"
-        },
-        {
-          "name": "workDir",
+          "name": "workingDirectory",
           "viewName": "Working Directory",
           "type": "string"
         },
@@ -59,13 +50,15 @@
         {
           "name": "sources",
           "viewName": "Sources Path",
+          "description": "Paths to the sources, one per line",
           "required": true,
           "parserType": "array",
           "type": "text"
         },
         {
-          "name": "args",
+          "name": "additionalArguments",
           "viewName": "Additional Arguments",
+          "description": "Additional arguments to pass to the CLI, one argument per line",
           "parserType": "array",
           "type": "text"
         }
@@ -76,20 +69,10 @@
       "viewName": "Create Project",
       "params": [
         {
-          "name": "hostUrl",
-          "viewName": "Host URL",
-          "type": "string"
-        },
-        {
           "name": "projectName",
           "viewName": "Project name",
           "required": true,
           "type": "string"
-        },
-        {
-          "name": "restToken",
-          "viewName": "REST API Token",
-          "type": "vault"
         },
         {
           "name": "organization",
