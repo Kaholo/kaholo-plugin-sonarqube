@@ -1,5 +1,6 @@
 {
-  "name": "SonarQube",
+  "name": "sonarqube",
+  "viewName": "SonarQube",
   "type": "executer",
   "execProgram": "node",
   "main": "app.js",
