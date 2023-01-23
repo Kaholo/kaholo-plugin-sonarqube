@@ -29,7 +29,7 @@ function createSimpleApiCallFunction(method, endpoint) {
 
     const baseUrl = `${hostUrl}${endpoint}`;
     const urlSearchParams = new URLSearchParams(urlSearchParamsObject);
-    const url = `${baseUrl}${urlSearchParams.toString()}`;
+    const url = `${baseUrl}?${urlSearchParams.toString()}`;
 
     return makeAuthenticatedApiCall({
       method,

@@ -89,7 +89,17 @@
         {
           "name": "visibility",
           "viewName": "Visibility",
-          "type": "string"
+          "type": "options",
+          "options": [
+            {
+              "id": "private",
+              "name": "Private"
+            },
+            {
+              "id": "public",
+              "name": "Public"
+            }
+          ]
         }
       ]
     },
