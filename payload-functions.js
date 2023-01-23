@@ -3,7 +3,7 @@ const { SONAR_SCANNER_CLI_NAME } = require("./consts.json");
 function prepareRunSonarScannerCommand(params) {
   const {
     hostUrl,
-    login,
+    cliLogin,
     additionalArguments,
     projectKey,
     sources,
@@ -23,9 +23,9 @@ function prepareRunSonarScannerCommand(params) {
     commandArguments.push("-Dsonar.host.url=$HOST_URL");
     environmentVariables.set("HOST_URL", hostUrl);
   }
-  if (login) {
-    commandArguments.push("-Dsonar.login=$LOGIN");
-    environmentVariables.set("LOGIN", login);
+  if (cliLogin) {
+    commandArguments.push("-Dsonar.login=$CLI_LOGIN");
+    environmentVariables.set("CLI_LOGIN", cliLogin);
   }
   if (additionalArguments?.length) {
     commandArguments.push(...additionalArguments);
@@ -37,6 +37,73 @@ function prepareRunSonarScannerCommand(params) {
   };
 }
 
+function prepareCreateProjectPayload(params) {
+  const {
+    hostUrl,
+    projectName,
+    organization,
+    projectKey,
+    restToken,
+    visibility,
+  } = params;
+
+  const urlSearchParams = new Map([
+    ["name", projectName],
+    ["project", projectKey],
+    ["visibility", visibility],
+  ]);
+  if (organization) {
+    urlSearchParams.set("organization", organization);
+  }
+
+  return {
+    urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
+    token: restToken,
+    hostUrl,
+  };
+}
+
+function prepareGetViolationsPayload(params) {
+  const {
+    hostUrl,
+    restToken,
+    componentName,
+  } = params;
+
+  const urlSearchParams = new Map([
+    ["component", componentName],
+    ["metricKeys", "violations"],
+  ]);
+
+  return {
+    urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
+    token: restToken,
+    hostUrl,
+  };
+}
+
+function prepareGetCoveragePayload(params) {
+  const {
+    hostUrl,
+    restToken,
+    componentName,
+  } = params;
+
+  const urlSearchParams = new Map([
+    ["component", componentName],
+    ["metricKeys", "coverage"],
+  ]);
+
+  return {
+    urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
+    token: restToken,
+    hostUrl,
+  };
+}
+
 module.exports = {
   prepareRunSonarScannerCommand,
+  prepareCreateProjectPayload,
+  prepareGetViolationsPayload,
+  prepareGetCoveragePayload,
 };

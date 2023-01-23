@@ -3,7 +3,7 @@ const kaholoPluginLibrary = require("@kaholo/plugin-library");
 const { DOCKER_IMAGE } = require("./consts.json");
 const { exec } = require("./helpers");
 
-async function runCliCommand(params) {
+async function runCommand(params) {
   const {
     command,
     environmentVariables,
@@ -32,10 +32,9 @@ async function runCliCommand(params) {
   if (stderr) {
     console.error(stderr);
   }
-
   return stdout;
 }
 
 module.exports = {
-  runCliCommand,
+  runCommand,
 };

@@ -10,9 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@kaholo/plugin-library": "^2.1.2",
-    "base-64": "^1.0.0",
-    "node-fetch": "^2.6.1",
-    "request": "^2.88.2"
+    "axios": "^1.2.3"
   },
   "devDependencies": {
     "eslint": "^8.32.0",

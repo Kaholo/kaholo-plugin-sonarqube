@@ -18,7 +18,7 @@
         "type": "string"
       },
       {
-        "name": "login",
+        "name": "cliLogin",
         "viewName": "CLI Token",
         "description": "CLI Token used to authenticate CLI execution",
         "type": "vault"
@@ -75,14 +75,14 @@
           "type": "string"
         },
         {
-          "name": "organization",
-          "viewName": "Organization",
-          "type": "string"
-        },
-        {
           "name": "projectKey",
           "viewName": "Project key",
           "required": true,
+          "type": "string"
+        },
+        {
+          "name": "organization",
+          "viewName": "Organization",
           "type": "string"
         },
         {
@@ -97,64 +97,23 @@
       "viewName": "Get Violations",
       "params": [
         {
-          "name": "HOST_URL",
-          "viewName": "host",
-          "type": "string"
-        },
-        {
-          "name": "COMPONENT_NAME",
+          "name": "componentName",
           "viewName": "Component Name",
+          "required": true,
           "type": "string"
-        },
-        {
-          "name": "username",
-          "viewName": "Sonar Username",
-          "type": "string"
-        },
-        {
-          "name": "password",
-          "viewName": "Sonar Password",
-          "type": "vault"
-        },
-        {
-          "name": "bearerToken",
-          "viewName": "API Token",
-          "type": "vault"
         }
       ]
-
     },
     {
       "name": "getCoverage",
       "viewName": "Get Code Coverage",
       "params": [
-
         {
-          "name": "HOST_URL",
-          "viewName": "host",
-          "type": "string"
-        },
-        {
-          "name": "COMPONENT_NAME",
+          "name": "componentName",
           "viewName": "Component Name",
+          "required": true,
           "type": "string"
-        },
-        {
-          "name": "username",
-          "viewName": "Sonar Username",
-          "type": "string"
-        },
-        {
-          "name": "password",
-          "viewName": "Sonar Password",
-          "type": "vault"
-        },
-        {
-          "name": "bearerToken",
-          "viewName": "API Token",
-          "type": "vault"
         }
-
       ]
     }
   ]
