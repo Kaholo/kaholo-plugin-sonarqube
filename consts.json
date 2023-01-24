@@ -1,0 +1,4 @@
+{
+  "DOCKER_IMAGE": "sonarsource/sonar-scanner-cli",
+  "SONAR_SCANNER_CLI_NAME": "sonar-scanner"
+}
