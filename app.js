@@ -9,6 +9,7 @@ const {
   prepareCreateProjectPayload,
   prepareGetViolationsPayload,
   prepareGetCoveragePayload,
+  prepareSearchProjectsPayload,
 } = require("./payload-functions");
 const {
   assertPath,
@@ -44,5 +45,9 @@ module.exports = kaholoPluginLibrary.bootstrap({
   getCoverage: createSimpleApiPluginMethod(
     prepareGetCoveragePayload,
     sonarQubeApiService.getComponentMeasures,
+  ),
+  searchProjects: createSimpleApiPluginMethod(
+    prepareSearchProjectsPayload,
+    sonarQubeApiService.searchProjects,
   ),
 });
