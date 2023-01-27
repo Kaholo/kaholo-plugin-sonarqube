@@ -1,5 +1,7 @@
 const { default: axios } = require("axios");
 
+const { DEFAULT_PAGE_SIZE } = require("./consts.json");
+
 async function makeAuthenticatedApiCall(params) {
   const {
     method,
@@ -33,15 +35,49 @@ async function makeAuthenticatedApiCall(params) {
 
 function createSimpleApiCallFunction(method, endpoint) {
   return (params) => makeAuthenticatedApiCall({
+    ...params,
     method,
     endpoint,
-    hostUrl: params.hostUrl,
-    token: params.token,
-    urlSearchParams: params.urlSearchParams,
   });
 }
 
+async function searchProjects(params, options = {}) {
+  const {
+    query,
+    hostUrl,
+    token,
+  } = params;
+
+  const {
+    page = 1,
+  } = options;
+
+  const urlSearchParams = {
+    q: query,
+    ps: DEFAULT_PAGE_SIZE,
+    p: page,
+  };
+
+  const { components } = await makeAuthenticatedApiCall({
+    endpoint: "api/projects/search",
+    method: "GET",
+    urlSearchParams,
+    hostUrl,
+    token,
+  });
+
+  if (components.length < DEFAULT_PAGE_SIZE) {
+    return components;
+  }
+
+  const recursiveResult = await searchProjects(params, {
+    page: page + 1,
+  });
+  return components.concat(recursiveResult);
+}
+
 module.exports = {
+  searchProjects,
   createProject: createSimpleApiCallFunction("POST", "api/projects/create"),
   getComponentMeasures: createSimpleApiCallFunction("GET", "api/measures/component"),
 };

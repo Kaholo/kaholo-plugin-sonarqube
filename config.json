@@ -126,6 +126,19 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "searchProjects",
+      "viewName": "Search Projects",
+      "params": [
+        {
+          "name": "query",
+          "viewName": "Project Name",
+          "description": "Project name or project key to search by, optional",
+          "type": "string",
+          "placeholder": "my-project"
+        }
+      ]
     }
   ]
 }

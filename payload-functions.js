@@ -101,9 +101,24 @@ function prepareGetCoveragePayload(params) {
   };
 }
 
+function prepareSearchProjectsPayload(params) {
+  const {
+    hostUrl,
+    restToken,
+    query,
+  } = params;
+
+  return {
+    token: restToken,
+    hostUrl,
+    query,
+  };
+}
+
 module.exports = {
   prepareRunSonarScannerCommand,
   prepareCreateProjectPayload,
   prepareGetViolationsPayload,
   prepareGetCoveragePayload,
+  prepareSearchProjectsPayload,
 };
