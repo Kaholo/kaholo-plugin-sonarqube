@@ -9,7 +9,7 @@
   "author": "Ilan Yaniv",
   "license": "ISC",
   "dependencies": {
-    "@kaholo/plugin-library": "^2.1.2",
+    "@kaholo/plugin-library": "^2.4.0",
     "axios": "^1.2.3"
   },
   "devDependencies": {
