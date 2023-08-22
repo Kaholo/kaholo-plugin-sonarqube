@@ -111,7 +111,7 @@ function prepareSearchProjectsPayload(params) {
   return {
     token: restToken,
     hostUrl,
-    query,
+    urlSearchParams: query,
   };
 }
 

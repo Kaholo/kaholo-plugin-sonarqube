@@ -43,7 +43,7 @@ function createSimpleApiCallFunction(method, endpoint) {
 
 async function searchProjects(params, options = {}) {
   const {
-    query,
+    urlSearchParams: query,
     hostUrl,
     token,
   } = params;
