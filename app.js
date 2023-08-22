@@ -1,4 +1,3 @@
-const path = require("path");
 const kaholoPluginLibrary = require("@kaholo/plugin-library");
 
 const sonarScannerCliService = require("./sonar-scanner-cli-service");
@@ -12,14 +11,10 @@ const {
   prepareSearchProjectsPayload,
 } = require("./payload-functions");
 const {
-  assertPath,
   createSimpleApiPluginMethod,
 } = require("./helpers");
 
 async function runSonarScanner(params) {
-  const absoluteWorkingDirectory = path.resolve(params.workingDirectory || "./");
-  await assertPath(absoluteWorkingDirectory);
-
   const {
     command,
     environmentVariables,
@@ -28,7 +23,7 @@ async function runSonarScanner(params) {
   return sonarScannerCliService.runCommand({
     command,
     environmentVariables,
-    workingDirectory: absoluteWorkingDirectory,
+    workingDirectory: params.workingDirectory?.absolutePath || process.cwd(),
   });
 }
 

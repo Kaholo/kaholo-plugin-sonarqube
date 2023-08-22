@@ -1,4 +1,4 @@
-const kaholoPluginLibrary = require("@kaholo/plugin-library");
+const { docker } = require("@kaholo/plugin-library");
 
 const { DOCKER_IMAGE } = require("./consts.json");
 const { exec } = require("./helpers");
@@ -10,18 +10,28 @@ async function runCommand(params) {
     workingDirectory,
   } = params;
 
-  const dockerCommand = kaholoPluginLibrary.docker.buildDockerCommand({
+  const projectDirVolumeDefinition = docker.createVolumeDefinition(workingDirectory);
+
+  const fullEnvironmentVariables = {
+    ...mapEnvironmentVariablesFromVolumeDefinitions([
+      projectDirVolumeDefinition,
+    ]),
+    ...environmentVariables,
+  };
+
+  const dockerCommand = docker.buildDockerCommand({
     image: DOCKER_IMAGE,
     command,
-    environmentVariables,
-    workingDirectory,
+    environmentVariables: fullEnvironmentVariables,
+    volumeDefinitionsArray: [projectDirVolumeDefinition],
+    workingDirectory: `$${projectDirVolumeDefinition.mountPoint.name}`,
   });
 
   let stdout;
   let stderr;
   try {
     ({ stdout, stderr } = await exec(dockerCommand, {
-      env: environmentVariables,
+      env: fullEnvironmentVariables,
     }));
   } catch (error) {
     console.error(`Error occurred while executing command: ${dockerCommand}`);
@@ -33,6 +43,14 @@ async function runCommand(params) {
     console.error(stderr);
   }
   return stdout;
+}
+
+function mapEnvironmentVariablesFromVolumeDefinitions(volumeDefinitions) {
+  return volumeDefinitions.reduce((acc, cur) => ({
+    ...acc,
+    [cur.mountPoint.name]: cur.mountPoint.value,
+    [cur.path.name]: cur.path.value,
+  }), {});
 }
 
 module.exports = {
