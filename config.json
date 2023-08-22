@@ -40,7 +40,12 @@
         {
           "name": "workingDirectory",
           "viewName": "Working Directory",
-          "type": "string"
+          "type": "string",
+          "parserType": "filePath",
+          "parserOptions": {
+            "throwIfDoesntExist": true,
+            "acceptedTypes": ["directory"]
+          }
         },
         {
           "name": "projectKey",
