@@ -3,7 +3,7 @@ const { SONAR_SCANNER_CLI_NAME } = require("./consts.json");
 function prepareRunSonarScannerCommand(params) {
   const {
     hostUrl,
-    cliLogin,
+    token,
     additionalArguments,
     projectKey,
     sources,
@@ -23,9 +23,9 @@ function prepareRunSonarScannerCommand(params) {
     commandArguments.push("-Dsonar.host.url=$HOST_URL");
     environmentVariables.set("HOST_URL", hostUrl);
   }
-  if (cliLogin) {
-    commandArguments.push("-Dsonar.login=$CLI_LOGIN");
-    environmentVariables.set("CLI_LOGIN", cliLogin);
+  if (token) {
+    commandArguments.push("-Dsonar.login=$SONAR_TOKEN");
+    environmentVariables.set("SONAR_TOKEN", token);
   }
   if (additionalArguments?.length) {
     commandArguments.push(...additionalArguments);
@@ -43,7 +43,7 @@ function prepareCreateProjectPayload(params) {
     projectName,
     organization,
     projectKey,
-    restToken,
+    token,
     visibility,
   } = params;
 
@@ -58,7 +58,7 @@ function prepareCreateProjectPayload(params) {
 
   return {
     urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
-    token: restToken,
+    token,
     hostUrl,
   };
 }
@@ -66,7 +66,7 @@ function prepareCreateProjectPayload(params) {
 function prepareGetViolationsPayload(params) {
   const {
     hostUrl,
-    restToken,
+    token,
     componentName,
   } = params;
 
@@ -77,7 +77,7 @@ function prepareGetViolationsPayload(params) {
 
   return {
     urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
-    token: restToken,
+    token,
     hostUrl,
   };
 }
@@ -85,7 +85,7 @@ function prepareGetViolationsPayload(params) {
 function prepareGetCoveragePayload(params) {
   const {
     hostUrl,
-    restToken,
+    token,
     componentName,
   } = params;
 
@@ -96,7 +96,7 @@ function prepareGetCoveragePayload(params) {
 
   return {
     urlSearchParams: Object.fromEntries(urlSearchParams.entries()),
-    token: restToken,
+    token,
     hostUrl,
   };
 }
@@ -104,12 +104,12 @@ function prepareGetCoveragePayload(params) {
 function prepareSearchProjectsPayload(params) {
   const {
     hostUrl,
-    restToken,
+    token,
     query,
   } = params;
 
   return {
-    token: restToken,
+    token,
     hostUrl,
     urlSearchParams: query,
   };

@@ -19,15 +19,9 @@
         "type": "string"
       },
       {
-        "name": "cliLogin",
-        "viewName": "CLI Token",
-        "description": "CLI Token used to authenticate CLI execution",
-        "type": "vault"
-      },
-      {
-        "name": "restToken",
-        "viewName": "User Token",
-        "description": "API Token used to authenticate API calls",
+        "name": "token",
+        "viewName": "Token",
+        "description": "User, Project Analysis, or Global Analysis token to authenticate with SonarQube",
         "type": "vault"
       }
     ]
