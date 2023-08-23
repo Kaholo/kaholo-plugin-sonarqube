@@ -7,21 +7,39 @@
   "exposeRoute": true,
   "imgUrl": "logo.png",
   "version": "1.0.3",
-  "description": "Integration with SonarQube API and CLI",
-  "category": "TESTING",
+  "description": "Continuous inspection of code quality with static analysis",
+  "category": [
+    "CI/CD",
+    "Testing"
+  ],
+  "keywords": [
+    "sonarqube",
+    "sonarsource",
+    "static code analysis",
+    "code",
+    "analysis",
+    "smells",
+    "quality",
+    "coverage",
+    "complexity"
+  ],
   "auth": {
     "authId": "sonarQubeAccount",
     "params": [
       {
         "name": "hostUrl",
-        "viewName": "Host URL",
-        "description": "URL of the SonarQube server",
+        "viewName": "Base URL",
+        "description": "Base URL of the SonarQube server",
+        "placeholder": "https://sonarqube.kaholodemo.net",
+        "required": true,
         "type": "string"
       },
       {
         "name": "token",
         "viewName": "Token",
         "description": "User, Project Analysis, or Global Analysis token to authenticate with SonarQube",
+        "placeholder": "b7c4bb2687a0b34eafb6c5e0d19f2200e400425c",
+        "required": true,
         "type": "vault"
       }
     ]
@@ -35,23 +53,28 @@
         {
           "name": "workingDirectory",
           "viewName": "Working Directory",
+          "description": "Relative or absolute path on Kaholo agent to the code repository to scan",
           "type": "string",
           "parserType": "filePath",
           "parserOptions": {
             "throwIfDoesntExist": true,
-            "acceptedTypes": ["directory"]
+            "acceptedTypes": [
+              "directory"
+            ]
           }
         },
         {
           "name": "projectKey",
           "viewName": "Project Key",
+          "description": "A string that identifies the project - up to 400 characters, no spaces, alphanumeric, \"-_.:\", at least one non-digit",
+          "placeholder": "my-sonar-project",
           "required": true,
           "type": "string"
         },
         {
           "name": "sources",
           "viewName": "Sources Path",
-          "description": "Paths to the sources, one per line",
+          "description": "Optional paths to directories containing main source files, one per line",
           "required": false,
           "parserType": "array",
           "type": "text"
@@ -59,7 +82,8 @@
         {
           "name": "additionalArguments",
           "viewName": "Additional Arguments",
-          "description": "Additional arguments to pass to the CLI, one argument per line",
+          "description": "Additional arguments to pass to the sonar-scanner CLI, one argument per line",
+          "placeholder": "--debug",
           "parserType": "array",
           "type": "text"
         }
@@ -72,24 +96,32 @@
         {
           "name": "projectName",
           "viewName": "Project name",
+          "description": "A user-friendly name for the new project",
+          "placeholder": "My Sonar Scanner Project",
           "required": true,
           "type": "string"
         },
         {
           "name": "projectKey",
-          "viewName": "Project key",
+          "viewName": "Project Key",
+          "description": "A string that identifies the project - up to 400 characters, no spaces, alphanumeric, \"-_.:\", at least one non-digit",
+          "placeholder": "my-sonar-project",
           "required": true,
           "type": "string"
         },
         {
           "name": "organization",
-          "viewName": "Organization",
+          "viewName": "Organization Key",
+          "description": "A string identifing the organization, if using SonarCloud",
+          "placeholder": "my-sonar-organization",
           "type": "string"
         },
         {
           "name": "visibility",
           "viewName": "Visibility",
+          "description": "Public visibility means any authenticated user can browse the project without specific permissions granted.",
           "type": "options",
+          "default": "public",
           "options": [
             {
               "id": "private",
@@ -99,17 +131,21 @@
               "id": "public",
               "name": "Public"
             }
-          ]
+          ],
+          "learnUrl": "https://docs.sonarsource.com/sonarqube/8.9/project-administration/project-existence/"
         }
       ]
     },
     {
       "name": "getViolations",
       "viewName": "Get Violations",
+      "description": "The total count of issues in all states",
       "params": [
         {
           "name": "componentName",
-          "viewName": "Component Name",
+          "viewName": "Project Key",
+          "description": "The Project Key of the project for which to get violations (total issues) data",
+          "placeholder": "my-sonar-project",
           "required": true,
           "type": "string"
         }
@@ -121,8 +157,10 @@
       "params": [
         {
           "name": "componentName",
-          "viewName": "Component Name",
+          "viewName": "Project Key",
+          "description": "The Project Key of the project for which to get code coverage data",
           "required": true,
+          "placeholder": "my-sonar-project",
           "type": "string"
         }
       ]
@@ -133,10 +171,10 @@
       "params": [
         {
           "name": "query",
-          "viewName": "Project Name",
-          "description": "Project name or project key to search by, optional",
+          "viewName": "Query",
+          "description": "An optional string to search for in the Project Keys - if ommitted all projects will be returned.",
           "type": "string",
-          "placeholder": "my-project"
+          "placeholder": "sonar"
         }
       ]
     }
