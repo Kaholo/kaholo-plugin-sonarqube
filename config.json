@@ -52,7 +52,7 @@
           "name": "sources",
           "viewName": "Sources Path",
           "description": "Paths to the sources, one per line",
-          "required": true,
+          "required": false,
           "parserType": "array",
           "type": "text"
         },

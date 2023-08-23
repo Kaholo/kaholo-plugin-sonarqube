@@ -11,13 +11,17 @@ function prepareRunSonarScannerCommand(params) {
 
   const commandArguments = [
     SONAR_SCANNER_CLI_NAME,
-    "-Dsonar.sources=$SOURCES",
     "-Dsonar.projectKey=$PROJECT_KEY",
   ];
+
   const environmentVariables = new Map([
-    ["SOURCES", sources.join(",")],
     ["PROJECT_KEY", projectKey],
   ]);
+
+  if (sources) {
+    commandArguments.push("-Dsonar.sources=$SOURCES")
+    environmentVariables.set("SOURCES", sources.join(","));
+  }
 
   if (hostUrl) {
     commandArguments.push("-Dsonar.host.url=$HOST_URL");
