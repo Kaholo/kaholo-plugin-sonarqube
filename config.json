@@ -30,6 +30,7 @@
     {
       "name": "runSonarScanner",
       "viewName": "Run Sonar Scanner",
+      "allowEmptyResult": true,
       "params": [
         {
           "name": "workingDirectory",
