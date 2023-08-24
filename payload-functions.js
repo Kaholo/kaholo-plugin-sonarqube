@@ -19,7 +19,7 @@ function prepareRunSonarScannerCommand(params) {
   ]);
 
   if (sources) {
-    commandArguments.push("-Dsonar.sources=$SOURCES")
+    commandArguments.push("-Dsonar.sources=$SOURCES");
     environmentVariables.set("SOURCES", sources.join(","));
   }
 

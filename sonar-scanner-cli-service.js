@@ -33,7 +33,8 @@ async function runCommand(params) {
       env: fullEnvironmentVariables,
     },
     onProgressFn: process.stdout.write.bind(process.stdout),
-  });}
+  });
+}
 
 function mapEnvironmentVariablesFromVolumeDefinitions(volumeDefinitions) {
   return volumeDefinitions.reduce((acc, cur) => ({
