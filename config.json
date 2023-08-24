@@ -95,7 +95,7 @@
       "params": [
         {
           "name": "projectName",
-          "viewName": "Project name",
+          "viewName": "Project Name",
           "description": "A user-friendly name for the new project",
           "placeholder": "My Sonar Scanner Project",
           "required": true,
