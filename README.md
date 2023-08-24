@@ -40,7 +40,7 @@ If you have cloned a git project relying on default configuration, for example `
 If there's any confusion about where the repository might be, it may be helpful to run a command using the [Command Line Plugin](https://github.com/Kaholo/kaholo-plugin-cmd), for example `find . -type d`. Note Command Line actions also have a working directory that if left empty will be the default Kaholo agent working directory. To see every directory in the agent set the working directory to `/` (root) instead.
 
 ### Parameter: Project Key
-This parameter is equivalent to `-Dsonar.sources` when using the command line tool.
+This parameter is equivalent to `-Dsonar.projectKey` when using the command line tool.
 
 Every project in SonarQube has an identifier called the Project Key. It may be up to 400 alphanumeric characters with no spaces and at least one numeric digit. It may also contain one or more of these four characters `-_.:` (dash, underscore, period, and colon).
 
