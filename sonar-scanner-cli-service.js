@@ -1,7 +1,7 @@
 const { docker } = require("@kaholo/plugin-library");
 
 const { DOCKER_IMAGE } = require("./consts.json");
-const { exec } = require("./helpers");
+const { liveLogExec } = require("./helpers");
 
 async function runCommand(params) {
   const {
@@ -27,22 +27,13 @@ async function runCommand(params) {
     workingDirectory: `$${projectDirVolumeDefinition.mountPoint.name}`,
   });
 
-  let stdout;
-  let stderr;
-  try {
-    ({ stdout, stderr } = await exec(dockerCommand, {
+  return liveLogExec({
+    command: dockerCommand,
+    options: {
       env: fullEnvironmentVariables,
-    }));
-  } catch (error) {
-    console.error(`Error occurred while executing command: ${dockerCommand}`);
-    console.error(error.stdout);
-    throw error;
-  }
-
-  if (stderr) {
-    console.error(stderr);
-  }
-  return stdout;
+    },
+    onProgressFn: process.stdout.write.bind(process.stdout),
+  });
 }
 
 function mapEnvironmentVariablesFromVolumeDefinitions(volumeDefinitions) {
