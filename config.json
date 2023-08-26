@@ -6,7 +6,7 @@
   "main": "app.js",
   "exposeRoute": true,
   "imgUrl": "logo.png",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Continuous inspection of code quality with static analysis",
   "category": [
     "CI/CD",
