@@ -1,0 +1,6 @@
+{
+  "DOCKER_IMAGE": "sonarsource/sonar-scanner-cli",
+  "SONAR_SCANNER_CLI_NAME": "sonar-scanner",
+  "DEFAULT_PAGE_SIZE": 500,
+  "EMPTY_RETURN_VALUE": ""
+}
